@@ -9,14 +9,7 @@ public class Room {
 			String sql = "Select Top("+input+") * from Rooms";
 			
 			ResultSet resultSet = st.executeQuery(sql);
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString("id")); 
-				System.out.println(resultSet.getString("room_type_id"));
-				System.out.println(resultSet.getString("hotel_id"));
-				System.out.println(resultSet.getString("created_date"));
-				System.out.println(resultSet.getString("updated_date"));
-				System.out.println(resultSet.getString("is_Active"));
-			}
+			printTable(resultSet);
 		}
 		catch(Exception ex) {
 			System.out.println(ex);
@@ -30,14 +23,7 @@ public class Room {
 			String sql = "Select * from Rooms Where id = "+input+";";
 			
 			ResultSet resultSet = st.executeQuery(sql);
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString("id")); 
-				System.out.println(resultSet.getString("room_type_id"));
-				System.out.println(resultSet.getString("hotel_id"));
-				System.out.println(resultSet.getString("created_date"));
-				System.out.println(resultSet.getString("updated_date"));
-				System.out.println(resultSet.getString("is_Active"));
-			}
+			printTable(resultSet);
 		}
 		catch(Exception ex) {
 			System.out.println(ex);
@@ -57,14 +43,7 @@ public class Room {
 			sql = "Select * from Rooms Where id = "+input+";";
 			
 			ResultSet resultSet = st.executeQuery(sql);
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString("id")); 
-				System.out.println(resultSet.getString("room_type_id"));
-				System.out.println(resultSet.getString("hotel_id"));
-				System.out.println(resultSet.getString("created_date"));
-				System.out.println(resultSet.getString("updated_date"));
-				System.out.println(resultSet.getString("is_Active"));
-			}
+			printTable(resultSet);
 		}
 		catch(Exception ex) {
 			System.out.println(ex);
@@ -97,14 +76,7 @@ public class Room {
 			sql = "Select * from Rooms Where id = "+input+";";
 			
 			ResultSet resultSet = st.executeQuery(sql);
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString("id")); 
-				System.out.println(resultSet.getString("room_type_id"));
-				System.out.println(resultSet.getString("hotel_id"));
-				System.out.println(resultSet.getString("created_date"));
-				System.out.println(resultSet.getString("updated_date"));
-				System.out.println(resultSet.getString("is_Active"));
-			}
+			printTable(resultSet);
 		}
 		catch(Exception ex) {
 			System.out.println(ex);
@@ -116,20 +88,32 @@ public class Room {
 		System.out.print(message);
 		int input = Main.getInput(message);
 		for (int i = 0; i < input; i++) {
-			int randInt = (int) Math.floor((Math.random() * 200000000) + 1);
+			int randInt = (int) Math.floor((Math.random() * 999999) + 1);
 			try {
 				
 				String sql = "Insert into Rooms \r\n"
-						+ "values("+randInt+","+randInt+","+randInt+", GETDATE(),GETDATE(),1);";
+						+ "values("+randInt+","+randInt+", GETDATE(),GETDATE(),1);";
 				st.executeUpdate(sql);
 			}
 			catch(Exception ex) {
 				System.out.println(ex);
 			}
 		}
-	
 	}
 	
-	
-	
+	public static void printTable(ResultSet resultSet) {
+		try {
+			while (resultSet.next()) {
+				System.out.println(resultSet.getString("id")); 
+				System.out.println(resultSet.getString("room_type_id"));
+				System.out.println(resultSet.getString("hotel_id"));
+				System.out.println(resultSet.getString("created_date"));
+				System.out.println(resultSet.getString("updated_date"));
+				System.out.println(resultSet.getString("is_Active"));
+			}
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+
+	}
 }

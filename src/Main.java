@@ -22,7 +22,27 @@ public class Main {
             con = DriverManager.getConnection(url, user, pass);
             
             Statement st = con.createStatement();
+            //create all tables
             initializeAllTables(st);
+            
+            //insert 10,000 hotels. IN THE CONSOLE TYPE 10,000 
+            Hotel.insertIntoTable(st);
+            
+            //insert 1 hotels. IN THE CONSOLE TYPE 1 
+            Hotel.insertIntoTable(st);
+            
+            //print 10 hotels, IN THE CONSOLE TYPE 10
+            Hotel.readFromTable(st);
+            
+            //make the first 10 hotels not active, IN THE CONSOLE TYPE 1, THEN 2, THEN 3... THEN 10.
+            for (int i = 0; i<10; i++) {
+            	Hotel.makeIsActiveFalseById(st);
+            }
+            
+            //select 1 hotel by the ID
+            Hotel.getById(st);
+            
+            
             con.close();
         }
         catch(Exception ex) {
@@ -36,7 +56,7 @@ public class Main {
             String sql = "IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'Hotels')\r\n"
             		+ "BEGIN\r\n"
             		+ "CREATE TABLE Hotels (\r\n"
-            		+ "  id INTEGER PRIMARY KEY,\r\n"
+            		+ "  id INTEGER PRIMARY KEY IDENTITY(1,1),\r\n"
             		+ "  hotel_name Text NOT NULL,\r\n"
             		+ "  hotel_location Text,\r\n"
             		+ "  created_date DATE NOT NULL,\r\n"
@@ -55,7 +75,7 @@ public class Main {
             sql = "IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'Room_Type')\r\n"
             		+ "BEGIN\r\n"
             		+ "CREATE TABLE Room_Type (\r\n"
-            		+ "  id INTEGER PRIMARY KEY,\r\n"
+            		+ "  id INTEGER PRIMARY KEY IDENTITY(1,1),\r\n"
             		+ "  room_type_name Text NOT NULL,\r\n"
             		+ "  created_date DATE,\r\n"
             		+ "  updated_date DATE,\r\n"
@@ -73,7 +93,7 @@ public class Main {
             sql = "IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'Rooms')\r\n"
             		+ "BEGIN\r\n"
             		+"CREATE TABLE Rooms (\r\n"
-            		+ "  id INTEGER PRIMARY KEY,\r\n"
+            		+ "  id INTEGER PRIMARY KEY IDENTITY(1,1),\r\n"
             		+ "  room_type_id INTEGER,\r\n"
             		+ "  hotel_id INTEGER,\r\n"
             		+ "  created_date DATE NOT NULL,\r\n"
@@ -94,7 +114,7 @@ public class Main {
             sql = "IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'Guests')\r\n"
             		+ "BEGIN\r\n"
             		+ "CREATE TABLE Guests (\r\n"
-            		+ "  id INTEGER PRIMARY KEY,\r\n"
+            		+ "  id INTEGER PRIMARY KEY IDENTITY(1,1),\r\n"
             		+ "  guest_name Text NOT NULL,\r\n"
             		+ "  guest_phone Text NOT NULL,\r\n"
             		+ "  guest_accompanying_members INTEGER NOT NULL,\r\n"
@@ -119,7 +139,7 @@ public class Main {
             sql = "IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'Employee_Type')\r\n"
             		+ "BEGIN\r\n"
             		+ "CREATE TABLE Employee_Type (\r\n"
-            		+ "  id INTEGER PRIMARY KEY,\r\n"
+            		+ "  id INTEGER PRIMARY KEY IDENTITY(1,1),\r\n"
             		+ "  employee_type_name Text NOT NULL,\r\n"
             		+ "  created_date DATE NOT NULL,\r\n"
             		+ "  updated_date DATE,\r\n"
@@ -137,7 +157,7 @@ public class Main {
             sql = "IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'Employees')\r\n"
             		+ "BEGIN\r\n"
             		+ "CREATE TABLE Employees (\r\n"
-            		+ "  id INTEGER PRIMARY KEY,\r\n"
+            		+ "  id INTEGER PRIMARY KEY IDENTITY(1,1),\r\n"
             		+ "  employee_type_id INTEGER,\r\n"
             		+ "  room_id INTEGER,\r\n"
             		+ "  created_date DATE NOT NULL,\r\n"
@@ -173,5 +193,7 @@ public class Main {
 			System.out.print(message);
 		}
 	}
+	
+	
 
 }

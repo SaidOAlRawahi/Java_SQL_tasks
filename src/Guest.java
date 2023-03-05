@@ -9,18 +9,7 @@ public class Guest {
 			String sql = "Select Top("+input+") * from Guests";
 			
 			ResultSet resultSet = st.executeQuery(sql);
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString("id")); 
-				System.out.println(resultSet.getString("guest_name"));
-				System.out.println(resultSet.getString("guest_phone"));
-				System.out.println(resultSet.getString("guest_accompanying_members"));
-				System.out.println(resultSet.getString("guest_payment_amount"));
-				System.out.println(resultSet.getString("room_id"));
-				System.out.println(resultSet.getString("hotel_id"));
-				System.out.println(resultSet.getString("created_date"));
-				System.out.println(resultSet.getString("updated_date"));
-				System.out.println(resultSet.getString("is_Active"));
-			}
+			printTable(resultSet);
 		}
 		catch(Exception ex) {
 			System.out.println(ex);
@@ -34,18 +23,7 @@ public class Guest {
 			String sql = "Select * from Guests Where id = "+input+";";
 			
 			ResultSet resultSet = st.executeQuery(sql);
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString("id")); 
-				System.out.println(resultSet.getString("guest_name"));
-				System.out.println(resultSet.getString("guest_phone"));
-				System.out.println(resultSet.getString("guest_accompanying_members"));
-				System.out.println(resultSet.getString("guest_payment_amount"));
-				System.out.println(resultSet.getString("room_id"));
-				System.out.println(resultSet.getString("hotel_id"));
-				System.out.println(resultSet.getString("created_date"));
-				System.out.println(resultSet.getString("updated_date"));
-				System.out.println(resultSet.getString("is_Active"));
-			}
+			printTable(resultSet);
 		}
 		catch(Exception ex) {
 			System.out.println(ex);
@@ -65,18 +43,7 @@ public class Guest {
 			sql = "Select * from Guests Where id = "+input+";";
 			
 			ResultSet resultSet = st.executeQuery(sql);
-			while (resultSet.next()) {
-				System.out.println(resultSet.getString("id")); 
-				System.out.println(resultSet.getString("guest_name"));
-				System.out.println(resultSet.getString("guest_phone"));
-				System.out.println(resultSet.getString("guest_accompanying_members"));
-				System.out.println(resultSet.getString("guest_payment_amount"));
-				System.out.println(resultSet.getString("room_id"));
-				System.out.println(resultSet.getString("hotel_id"));
-				System.out.println(resultSet.getString("created_date"));
-				System.out.println(resultSet.getString("updated_date"));
-				System.out.println(resultSet.getString("is_Active"));
-			}
+			printTable(resultSet);
 		}
 		catch(Exception ex) {
 			System.out.println(ex);
@@ -109,6 +76,33 @@ public class Guest {
 			sql = "Select * from Guests Where id = "+input+";";
 			
 			ResultSet resultSet = st.executeQuery(sql);
+			printTable(resultSet);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+	}
+	
+	public static void insertIntoTable(Statement st) {
+		String message = "How Many Guests Do You want to Insert: ";
+		System.out.print(message);
+		int input = Main.getInput(message);
+		for (int i = 0; i < input; i++) {
+			int randInt = (int) Math.floor((Math.random() * 999999) + 1);
+			try {
+				
+				String sql = "Insert into Guests \r\n"
+						+ "values('SAIDR"+randInt+"','SAIDR"+randInt+"',"+randInt+","+randInt+","+randInt+","+randInt+", GETDATE(),GETDATE(),1);";
+				st.executeUpdate(sql);
+			}
+			catch(Exception ex) {
+				System.out.println(ex);
+			}
+		}
+	}
+	
+	public static void printTable(ResultSet resultSet) {
+		try {
 			while (resultSet.next()) {
 				System.out.println(resultSet.getString("id")); 
 				System.out.println(resultSet.getString("guest_name"));
@@ -121,28 +115,8 @@ public class Guest {
 				System.out.println(resultSet.getString("updated_date"));
 				System.out.println(resultSet.getString("is_Active"));
 			}
-		}
-		catch(Exception ex) {
+		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-	}
-	
-	public static void insertIntoTable(Statement st) {
-		String message = "How Many Guests Do You want to Insert: ";
-		System.out.print(message);
-		int input = Main.getInput(message);
-		for (int i = 0; i < input; i++) {
-			int randInt = (int) Math.floor((Math.random() * 200000000) + 1);
-			try {
-				
-				String sql = "Insert into Guests \r\n"
-						+ "values("+randInt+",'SAID AL RAWAHI"+randInt+"','SAID AL RAWAHI"+randInt+"',"+randInt+","+randInt+","+randInt+","+randInt+", GETDATE(),GETDATE(),1);";
-				st.executeUpdate(sql);
-			}
-			catch(Exception ex) {
-				System.out.println(ex);
-			}
-		}
-	
 	}
 }
